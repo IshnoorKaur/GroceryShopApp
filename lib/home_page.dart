@@ -17,9 +17,24 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      body: const Center(
-        child: Text('Welcome to the Grocery Store!'),
+     body: ListView.builder(
+  itemCount: sampleProducts.length,
+  itemBuilder: (context, index) {
+    final product = sampleProducts[index];
+    return ListTile(
+      title: Text(product.name),
+      subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
+      trailing: IconButton(
+        icon: const Icon(Icons.add_shopping_cart),
+        onPressed: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('${product.name} added to cart!')),
+          );
+        },
       ),
+    );
+  },
+),
     );
   }
 }
